@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ `id -u` != "0" ]; then
+    echo "Run as root."
+    exit 1
+fi
+
+if [ "`grep '^/dev/mapper/datacrypt' /proc/mounts`" == "" ]; then
+    cryptdisks_start datacrypt && mount /data
+else
+    echo "datacrypt is already mounted"
+fi
+
+if [ "`grep '^/dev/mapper/tankcrypt' /proc/mounts`" == "" ]; then
+    if [ -e /dev/disk/by-id/lvm-pv-uuid-841v3n-fc3E-fs4o-N0fA-TGcj-Ajlz-Aej7UQ ]; then
+        cryptdisks_start tankcrypt && mount /tank
+    else
+	echo "tankcrypt is not connected"
+    fi
+else
+    echo "tankcrypt is already mounted"
+fi

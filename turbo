@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 == "on" ]; then
+    sudo /bin/bash -c 'echo 0 >/sys/devices/system/cpu/intel_pstate/no_turbo'
+    echo "TURBO ON"
+else
+    sudo /bin/bash -c 'echo 1 >/sys/devices/system/cpu/intel_pstate/no_turbo'
+    echo "TURBO OFF"
+fi

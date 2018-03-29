@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec aria2c --dht-listen-port=6967 --listen-port=6883 --bt-exclude-tracker=* $@
